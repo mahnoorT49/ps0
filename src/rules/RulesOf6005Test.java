@@ -22,4 +22,31 @@ public class RulesOf6005Test {
         assertTrue("Expected true: self-written required code",
                 RulesOf6005.mayUseCodeInAssignment(true, false, true, true, true));
     }
+    
+    /**
+     * Your own code can always be used, even if it is not public.
+     */
+    @Test
+    public void testOwnCodeAlwaysAllowed() {
+        assertTrue("Expected true: code written by yourself",
+                RulesOf6005.mayUseCodeInAssignment(true, false, true, false, true));
+    }
+    
+    /**
+     * Public code cannot be used if the source is not cited.
+     */
+    @Test
+    public void testUncitedPublicCodeNotAllowed() {
+        assertFalse("Expected false: public code without citation",
+                RulesOf6005.mayUseCodeInAssignment(false, true, false, false, false));
+    }
+
+    /**
+     * Code from a private source cannot be used even if it is cited.
+     */
+    @Test
+    public void testPrivateCodeNotAllowed() {
+        assertFalse("Expected false: code that is not publicly available",
+                RulesOf6005.mayUseCodeInAssignment(false, false, false, true, false));
+    }
 }
